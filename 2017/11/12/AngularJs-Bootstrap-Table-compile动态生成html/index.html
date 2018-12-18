@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AngularJs,BootStrap," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;gt;&amp;gt;&amp;gt;整理最近AngularJs动态文档编译遇到问题的解决方案...">
+<meta name="keywords" content="AngularJs,BootStrap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJs+Bootstrap Table $compile动态生成html">
+<meta property="og:url" content="http://yoursite.com/2017/11/12/AngularJs-Bootstrap-Table-compile动态生成html/index.html">
+<meta property="og:site_name" content="xdHoo">
+<meta property="og:description" content="&amp;gt;&amp;gt;&amp;gt;整理最近AngularJs动态文档编译遇到问题的解决方案...">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20171128175231761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzMyMTM2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-11-29T12:47:17.302Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AngularJs+Bootstrap Table $compile动态生成html">
+<meta name="twitter:description" content="&amp;gt;&amp;gt;&amp;gt;整理最近AngularJs动态文档编译遇到问题的解决方案...">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171128175231761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzMyMTM2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/12/AngularJs-Bootstrap-Table-compile动态生成html/"/>
+
+
+
+
+
+  <title>AngularJs+Bootstrap Table $compile动态生成html | xdHoo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xdHoo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There is time.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/AngularJs-Bootstrap-Table-compile动态生成html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xdHoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xdHoo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AngularJs+Bootstrap Table $compile动态生成html</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T09:40:36+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  >>>整理最近AngularJs动态文档编译遇到问题的解决方案...
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="AngularJs-Bootstrap-Table-compile动态生成html"><a href="#AngularJs-Bootstrap-Table-compile动态生成html" class="headerlink" title="AngularJs+Bootstrap Table $compile动态生成html"></a>AngularJs+Bootstrap Table $compile动态生成html</h1><p>关于angular+bootstrap table 使用的一些问题</p>
+<ul>
+<li><strong>①table中动态添加元素并绑定事件，js事件（eg:’ng-click…’）未被监听</strong></li>
+<li><strong>②使用jQuery方式绑定事件，造成数据动态绑定响应延时</strong></li>
+</ul>
+<hr>
+<p>关于ng-click未响应问题，由于事件监听在静态HTML页面生成时已经完成，因此对动态生成的元素绑定事件并实现监听，需要通过angularJs中的<strong>compile</strong>服务将动态添加的元素进行编译。<br><strong>bootstraptable相关参数设置  (<a href="http://blog.csdn.net/rickiyeat/article/details/56483577" target="_blank" rel="noopener">参考文档(中)</a>|<a href="http://bootstrap-table.wenzhixin.net.cn/documentation/" target="_blank" rel="noopener">参考文档(英)</a>)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&quot;myApp&quot;,[]).controller(&apos;demoController&apos;,[&apos;$scope&apos;,&apos;$compile&apos;,</span><br><span class="line">  function($scope,$compile)&#123;</span><br><span class="line">    $scope.options=new Array();</span><br><span class="line">    $scope.events=new Array();</span><br><span class="line">    $(&quot;#myTable&quot;).bootstrapTable(&#123;//参数设置参考上文文档</span><br><span class="line">      url:&apos;demo.json&apos;,</span><br><span class="line">      method:&apos;get&apos;,</span><br><span class="line">      pagination:true,</span><br><span class="line">      pageNumber:1,</span><br><span class="line">      pageSize:5,</span><br><span class="line">      pageList:[5,10,15,20],</span><br><span class="line">      queryParams:function queryParams(params)&#123;</span><br><span class="line">        var param = &#123;</span><br><span class="line">          &quot;pageNo&quot;: params.offset / params.limit + 1,</span><br><span class="line">          &quot;pageSize&quot;: params.limit</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      columns:[</span><br><span class="line">        &#123;</span><br><span class="line">          field:&quot;id&quot;,</span><br><span class="line">          title:&quot;序号&quot;</span><br><span class="line">        &#125;,&#123;</span><br><span class="line">          field:&quot;name&quot;,</span><br><span class="line">          title:&quot;名称&quot;</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">          field:&quot;email&quot;,</span><br><span class="line">          title:&quot;邮箱&quot;</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">          field:&quot;age&quot;,</span><br><span class="line">          title:&quot;年龄&quot;</span><br><span class="line">        &#125;,&#123;</span><br><span class="line">          field:&quot;status&quot;,</span><br><span class="line">          title:&quot;状态&quot;</span><br><span class="line">        &#125;,&#123;</span><br><span class="line">          title:&quot;操作&quot;,</span><br><span class="line">          formatter:function(value,row,index)&#123;</span><br><span class="line">            var rtn=&quot;&lt;div id=&apos;option_&quot;+row.id+&quot;&apos;&gt;&lt;/div&gt;&quot;;//在格式化操作栏的过程中添加一个id唯一的空div，供后续编译使用</span><br><span class="line">            //event可依据当前记录创建不同的元素内容</span><br><span class="line">            var event=</span><br><span class="line">              &quot;&lt;a class=&apos;btn btn-xs green&apos; title=&apos;编辑&apos; ng-click=&apos;$scope.edit(&apos;+row.id+&apos;)&apos;&gt;&quot;+</span><br><span class="line">              &quot;&lt;span class=&apos;glyphicon glyphicon-pencil&apos;&gt;&lt;/span&gt;&lt;/a&gt;&quot;+</span><br><span class="line">              &quot;&lt;a class=&apos;btn btn-xs green&apos; title=&apos;删除&apos; ng-click=&apos;$scope.edit(&apos;+row.id+&apos;)&apos;&gt;&quot;+</span><br><span class="line">              &quot;&lt;span class=&apos;glyphicon glyphicon-trash&apos;&gt;&lt;/span&gt;&lt;/a&gt;&quot;;</span><br><span class="line">            $scope.options.push(&quot;option_&quot;+row.id);//将id push至options数组</span><br><span class="line">            $scope.events.push(event);//将待创建的htmlpush到events数组</span><br><span class="line">            return rtn;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      onLoadSuccess:function()&#123;//调用bootstrap加载完成方法</span><br><span class="line">        for(var i=0;i&lt;$scope.options.length;i++)&#123;//通过循环所创建的数据，将元素逐个进行compile</span><br><span class="line">          var _option=$scope.options[i];</span><br><span class="line">          var _event=$scope.events[i];</span><br><span class="line">          var $el=$(_event).appendTo(&quot;#&quot;+_option);</span><br><span class="line">          $compile($el)($scope);//compile完成后，页面即可响应ng事件</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;]</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>实现效果：<br><img src="http://img.blog.csdn.net/20171128175231761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzMyMTM2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AngularJs/" rel="tag"># AngularJs</a>
+          
+            <a href="/tags/BootStrap/" rel="tag"># BootStrap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/01/JavaScript-高阶函数/" rel="next" title="JavaScript 高阶函数">
+                <i class="fa fa-chevron-left"></i> JavaScript 高阶函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/03/JavaScript发展/" rel="prev" title="JavaScript发展">
+                JavaScript发展 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      <div class="tag-cloud">
+        <div class="tag-cloud-tags">
+          <a href="/tags/Amap/" style="font-size: 10px; color: #777">Amap</a> <a href="/tags/Angular/" style="font-size: 16px; color: #111">Angular</a> <a href="/tags/AngularJs/" style="font-size: 10px; color: #777">AngularJs</a> <a href="/tags/BootStrap/" style="font-size: 10px; color: #777">BootStrap</a> <a href="/tags/EChart/" style="font-size: 10px; color: #777">EChart</a> <a href="/tags/ES6/" style="font-size: 10px; color: #777">ES6</a> <a href="/tags/JSONP/" style="font-size: 10px; color: #777">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 14.8px; color: #252525">JavaScript</a> <a href="/tags/LESS/" style="font-size: 10px; color: #777">LESS</a> <a href="/tags/Linux/" style="font-size: 10px; color: #777">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px; color: #777">MongoDB</a> <a href="/tags/Nginx/" style="font-size: 11.2px; color: #636363">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 11.2px; color: #636363">NodeJs</a> <a href="/tags/ReactJs/" style="font-size: 10px; color: #777">ReactJs</a> <a href="/tags/RxJS/" style="font-size: 10px; color: #777">RxJS</a> <a href="/tags/TypeScript/" style="font-size: 13.6px; color: #3a3a3a">TypeScript</a> <a href="/tags/VueJs/" style="font-size: 11.2px; color: #636363">VueJs</a> <a href="/tags/css/" style="font-size: 10px; color: #777">css</a> <a href="/tags/git/" style="font-size: 10px; color: #777">git</a> <a href="/tags/hexo/" style="font-size: 10px; color: #777">hexo</a> <a href="/tags/miniProgram/" style="font-size: 10px; color: #777">miniProgram</a> <a href="/tags/npm/" style="font-size: 11.2px; color: #636363">npm</a> <a href="/tags/tslint/" style="font-size: 10px; color: #777">tslint</a> <a href="/tags/webpack/" style="font-size: 12.4px; color: #4e4e4e">webpack</a> <a href="/tags/yarn/" style="font-size: 10px; color: #777">yarn</a>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xdHoo</p>
+              <p class="site-description motion-element" itemprop="description">There is time.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>        
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AngularJs-Bootstrap-Table-compile动态生成html"><span class="nav-number">1.</span> <span class="nav-text">AngularJs+Bootstrap Table $compile动态生成html</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xdHoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

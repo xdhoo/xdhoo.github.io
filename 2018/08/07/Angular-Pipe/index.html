@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Angular," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;gt;&amp;gt;&amp;gt;关于Angular中内置管道的整理，以及自定义管道使用...">
+<meta name="keywords" content="Angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular Pipe">
+<meta property="og:url" content="http://yoursite.com/2018/08/07/Angular-Pipe/index.html">
+<meta property="og:site_name" content="xdHoo">
+<meta property="og:description" content="&amp;gt;&amp;gt;&amp;gt;关于Angular中内置管道的整理，以及自定义管道使用...">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-29T12:47:17.302Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular Pipe">
+<meta name="twitter:description" content="&amp;gt;&amp;gt;&amp;gt;关于Angular中内置管道的整理，以及自定义管道使用...">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/07/Angular-Pipe/"/>
+
+
+
+
+
+  <title>Angular Pipe | xdHoo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xdHoo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There is time.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/Angular-Pipe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xdHoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xdHoo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Angular Pipe</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T13:22:30+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  >>>关于Angular中内置管道的整理，以及自定义管道使用...
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Angular-6-内置管道"><a href="#Angular-6-内置管道" class="headerlink" title="Angular 6 内置管道"></a>Angular 6 内置管道</h1><h2 id="AsyncPipe-异步管道"><a href="#AsyncPipe-异步管道" class="headerlink" title="AsyncPipe - 异步管道"></a>AsyncPipe - 异步管道</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>AsyncPipe 订阅一个 Observable 或 Promise 对象，并返回它发出的最新值</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>obj_expression | async</code></p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: &apos;async-observable-pipe&apos;,</span><br><span class="line">  template: &apos;&lt;div&gt;&lt;code&gt;observable|async&lt;/code&gt;: Time: &#123;&#123; time | async &#125;&#125;&lt;/div&gt;&apos;</span><br><span class="line">&#125;)</span><br><span class="line">export class AsyncObservablePipeComponent &#123;</span><br><span class="line">  time = new Observable&lt;string&gt;((observer: Observer&lt;string&gt;) =&gt; &#123;</span><br><span class="line">    setInterval(() =&gt; observer.next(new Date().toString()), 1000);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CurrencyPipe-货币管道"><a href="#CurrencyPipe-货币管道" class="headerlink" title="CurrencyPipe - 货币管道"></a>CurrencyPipe - 货币管道</h2><h3 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h3><p>将数值进行货币格式化处理</p>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | currency [ : currencyCode [ : display [ : digitsInfo [ : locale ] ] ] ]</code></p>
+<ul>
+<li>currencyCode: ISO 4217货币码，目标货币格式。如CNY人民币、USD美元、EUR欧元等</li>
+<li>display: 设置该类型货币以哪种格式显示，可选，默认值为<code>symbol</code><ul>
+<li>‘code’: 使用货币码，如CNY</li>
+<li>‘symbol’: 使用货币符号，如￥</li>
+<li>‘symbol-narrow’: 针对有两个货币规则的区域，选择使用简单符号，例如加元<code>symbol</code>为<code>CA$</code>,<code>symbol-narrow</code>为<code>$</code></li>
+<li>string: 使用指定字符串</li>
+<li>boolean: true表示<code>symbol</code>,false表示<code>symbol-narrow</code></li>
+</ul>
+</li>
+<li>digitsInfo: <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>，可选<ul>
+<li>minIntegerDigits:小数点之前最少显示几位，默认为1</li>
+<li>minFractionDigits:小数点之后最少显示几位，默认为0</li>
+<li>maxFractionDigits:小数点之后最多显示几位，默认为3</li>
+<li>locale:区域代码，如果未提供，则使用LOCALE_ID的值，默认情况下为en-US。可选</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123;0.259 | currency&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;$0.26&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;0.259 | currency:&apos;CAD&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;CA$0.26&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;0.259 | currency:&apos;CAD&apos;:&apos;code&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;CAD0.26&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;1.3495 | currency:&apos;CAD&apos;:&apos;symbol&apos;:&apos;4.2-2&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;CA$0,001.35&quot; --&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;1.3495 | currency:&apos;CAD&apos;:&apos;symbol-narrow&apos;:&apos;4.2-2&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;$0,001.35&quot; --&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;1.3495 | currency:&apos;CAD&apos;:&apos;symbol&apos;:&apos;4.2-2&apos;:&apos;fr&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;0 001,35 CA$&quot; --&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;1.3495 | currency:&apos;CLP&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;CLP1&quot; 智利比索没有分单位货币--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="DatePipe-时间管道"><a href="#DatePipe-时间管道" class="headerlink" title="DatePipe - 时间管道"></a>DatePipe - 时间管道</h2><h3 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h3><p>日期格式化</p>
+<h3 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | date [ : format [ : timezone [ : locale ] ] ]</code></p>
+<ul>
+<li>format: 预定义日期格式，可选，默认为<code>mediumDate</code></li>
+<li>timezone: 时区偏移量，可选，默认为用户计算机本地系统时区</li>
+<li>locale: 区域代码，如果未提供，则使用LOCALE_ID的值，默认情况下为en-US。可选</li>
+</ul>
+<h2 id="DecimalPipe-数值管道"><a href="#DecimalPipe-数值管道" class="headerlink" title="DecimalPipe - 数值管道"></a>DecimalPipe - 数值管道</h2><h3 id="说明-3"><a href="#说明-3" class="headerlink" title="说明"></a>说明</h3><p>依据地区设置规则格式化数字</p>
+<h3 id="语法-3"><a href="#语法-3" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | number [ : digitsInfo [ : locale ] ]</code></p>
+<ul>
+<li>digitsInfo:<code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>，可选<ul>
+<li>minIntegerDigits:小数点之前最少显示几位，默认为1</li>
+<li>minFractionDigits:小数点之后最少显示几位，默认为0</li>
+<li>maxFractionDigits:小数点之后最多显示几位，默认为3</li>
+<li>locale:区域代码，如果未提供，则使用LOCALE_ID的值，默认情况下为en-US。可选<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123;2.718281828459045 | number&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;2.718&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;2.718281828459045 | number:&apos;3.1-5&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;002.71828&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;2.718281828459045 | number:&apos;4.5-5&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;0,002.71828&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;2.718281828459045 | number:&apos;4.5-5&apos;:&apos;fr&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;0 002,71828&quot; --&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="PercentPipe-百分比管道"><a href="#PercentPipe-百分比管道" class="headerlink" title="PercentPipe - 百分比管道"></a>PercentPipe - 百分比管道</h2><h3 id="说明-4"><a href="#说明-4" class="headerlink" title="说明"></a>说明</h3><p>将数字转换为百分比字符串，根据分组大小，分隔符，小数点字符以及其他特定于语言环境的配置的区域设置规则进行格式化。</p>
+<h3 id="语法-4"><a href="#语法-4" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | percent [ : digitsInfo [ : locale ] ]</code></p>
+<ul>
+<li>digitsInfo:<code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>，可选<ul>
+<li>minIntegerDigits:小数点之前最少显示几位，默认为1</li>
+<li>minFractionDigits:小数点之后最少显示几位，默认为0</li>
+<li>maxFractionDigits:小数点之后最多显示几位，默认为3</li>
+<li>locale:区域代码，如果未提供，则使用LOCALE_ID的值，默认情况下为en-US。可选</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123;0.259 | percent&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;26%&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;1.3495 | percent:&apos;4.3-5&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;0,134.950%&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;1.3495 | percent:&apos;4.3-5&apos;:&apos;fr&apos;&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;0 134,950 %&quot; --&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="I18nPluralPipe-I18N复数管道"><a href="#I18nPluralPipe-I18N复数管道" class="headerlink" title="I18nPluralPipe - I18N复数管道"></a>I18nPluralPipe - I18N复数管道</h2><h3 id="说明-5"><a href="#说明-5" class="headerlink" title="说明"></a>说明</h3><p>将值映射到字符串，该字符串根据区域设置规则对值进行复数化。</p>
+<h3 id="语法-5"><a href="#语法-5" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | i18nPlural : pluralMap [ : locale ]</code></p>
+<ul>
+<li>pluralMap:模仿IUC格式的对象</li>
+<li>locale:可选</li>
+</ul>
+<h3 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: &apos;i18n-plural-pipe&apos;,</span><br><span class="line">  template: `&lt;div&gt;&#123;&#123; messages.length | i18nPlural: messageMapping &#125;&#125;&lt;/div&gt;`</span><br><span class="line">&#125;)</span><br><span class="line">export class I18nPluralPipeComponent &#123;</span><br><span class="line">  messages: any[] = [&apos;Message 1&apos;];</span><br><span class="line">  messageMapping:</span><br><span class="line">      &#123;[k: string]: string&#125; = &#123;&apos;=0&apos;: &apos;No messages.&apos;, &apos;=1&apos;: &apos;One message.&apos;, &apos;other&apos;: &apos;# messages.&apos;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="I18nSelectPipe-I18n选择管道"><a href="#I18nSelectPipe-I18n选择管道" class="headerlink" title="I18nSelectPipe - I18n选择管道"></a>I18nSelectPipe - I18n选择管道</h2><h3 id="说明-6"><a href="#说明-6" class="headerlink" title="说明"></a>说明</h3><p>显示与当前值匹配的字符串的通用选择器。</p>
+<h3 id="语法-6"><a href="#语法-6" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | i18nSelect : mapping</code></p>
+<ul>
+<li>mapping:表示不同值对应相应文本的一个对象</li>
+</ul>
+<h3 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Component(</span><br><span class="line">    &#123;selector: &apos;i18n-select-pipe&apos;, template: `&lt;div&gt;&#123;&#123;gender | i18nSelect: inviteMap&#125;&#125; &lt;/div&gt;`&#125;)</span><br><span class="line">export class I18nSelectPipeComponent &#123;</span><br><span class="line">  gender: string = &apos;male&apos;;</span><br><span class="line">  inviteMap: any = &#123;&apos;male&apos;: &apos;Invite him.&apos;, &apos;female&apos;: &apos;Invite her.&apos;, &apos;other&apos;: &apos;Invite them.&apos;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">//other关键字用于处理其它条件都不成立的情况</span><br></pre></td></tr></table></figure>
+<h2 id="JsonPipe-Json管道"><a href="#JsonPipe-Json管道" class="headerlink" title="JsonPipe - Json管道"></a>JsonPipe - Json管道</h2><h3 id="说明-7"><a href="#说明-7" class="headerlink" title="说明"></a>说明</h3><p>将值转换为JSON字符串</p>
+<h3 id="语法-7"><a href="#语法-7" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | json</code></p>
+<h2 id="KeyValuePipe-键值管道"><a href="#KeyValuePipe-键值管道" class="headerlink" title="KeyValuePipe - 键值管道"></a>KeyValuePipe - 键值管道</h2><h3 id="说明-8"><a href="#说明-8" class="headerlink" title="说明"></a>说明</h3><p>将Object或Map转换为键值对数组,使用keyvalue管道。对象或Map解构可在ngFor中遍历</p>
+<h3 id="语法-8"><a href="#语法-8" class="headerlink" title="语法"></a>语法</h3><p><code>input_expression | keyvalue [ : compareFn ]</code></p>
+<h3 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: &apos;keyvalue-pipe&apos;,</span><br><span class="line">  template: `&lt;span&gt;</span><br><span class="line">    &lt;p&gt;Object&lt;/p&gt;</span><br><span class="line">    &lt;div *ngFor=&quot;let item of object | keyvalue&quot;&gt;</span><br><span class="line">      &#123;&#123;item.key&#125;&#125;:&#123;&#123;item.value&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;p&gt;Map&lt;/p&gt;</span><br><span class="line">    &lt;div *ngFor=&quot;let item of map | keyvalue&quot;&gt;</span><br><span class="line">      &#123;&#123;item.key&#125;&#125;:&#123;&#123;item.value&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/span&gt;`</span><br><span class="line">&#125;)</span><br><span class="line">export class KeyValuePipeComponent &#123;</span><br><span class="line">  object: &#123;[key: number]: string&#125; = &#123;2: &apos;foo&apos;, 1: &apos;bar&apos;&#125;;</span><br><span class="line">  map = new Map([[2, &apos;foo&apos;], [1, &apos;bar&apos;]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LowerCasePipe-amp-amp-UpperCasePipe-大小写管道"><a href="#LowerCasePipe-amp-amp-UpperCasePipe-大小写管道" class="headerlink" title="LowerCasePipe &amp;&amp; UpperCasePipe - 大小写管道"></a>LowerCasePipe &amp;&amp; UpperCasePipe - 大小写管道</h2><h3 id="说明-9"><a href="#说明-9" class="headerlink" title="说明"></a>说明</h3><p>将文本全部转换为小写或者大写</p>
+<h3 id="语法-9"><a href="#语法-9" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | lowercase</code><br><code>value_expression | lowercase</code></p>
+<h3 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123;&apos;sOme!&amp;sTring&apos; | lowercase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;some!&amp;string&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;sOme!&amp;sTring&apos; | lowercase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;SOME!&amp;STRING&quot; --&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="SlicePipe-截取管道"><a href="#SlicePipe-截取管道" class="headerlink" title="SlicePipe - 截取管道"></a>SlicePipe - 截取管道</h2><h3 id="说明-10"><a href="#说明-10" class="headerlink" title="说明"></a>说明</h3><p>创建一个包含元素自己的新数组或者字符串</p>
+<h3 id="语法-10"><a href="#语法-10" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | slice : start [ : end ]</code></p>
+<ul>
+<li>start:以0为基数，若为负值，则length + start</li>
+<li>end:以0为基数，若为负值，则length + start,若省略则到字符串结尾</li>
+</ul>
+<h3 id="示例-8"><a href="#示例-8" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123;&apos;abcdefghij&apos; | slice:0:4&#125;&#125; - 输出 &apos;abcd&apos;&lt;/p&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;abcdefghij&apos; | slice:4:0&#125;&#125; - 输出 &apos;&apos;&lt;/p&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;abcdefghij&apos; | slice:-4&#125;&#125; - 输出 &apos;ghij&apos;&lt;/p&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;abcdefghij&apos; | slice:-4:-2&#125;&#125; - 输出 &apos;gh&apos;&lt;/p&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;abcdefghij&apos; | slice:-100&#125;&#125; - 输出 &apos;abcdefghij&apos;&lt;/p&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;abcdefghij&apos; | slice:100&#125;&#125; - 输出 &apos;&apos;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="TitleCasePipe-标题管道"><a href="#TitleCasePipe-标题管道" class="headerlink" title="TitleCasePipe - 标题管道"></a>TitleCasePipe - 标题管道</h2><h3 id="说明-11"><a href="#说明-11" class="headerlink" title="说明"></a>说明</h3><p>将文本转换为标题大小写，将每个单词第一个字母大写，其余字母小写，以空白字符分隔的视为一个单词，如空格，制表符，换行符</p>
+<h3 id="语法-11"><a href="#语法-11" class="headerlink" title="语法"></a>语法</h3><p><code>value_expression | titlecase</code></p>
+<h3 id="示例-9"><a href="#示例-9" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123;&apos;some string&apos; | titlecase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;Some String&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;tHIs is mIXeD CaSe&apos; | titlecase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;This Is Mixed Case&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;it\\&apos;s non-trivial question&apos; | titlecase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;It&apos;s Non-trivial Question&quot; --&gt; </span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;one,two,three&apos; | titlecase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;One,two,three&quot; --&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;true|false&apos; | titlecase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;True|false&quot; --&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;&apos;foo-vs-bar&apos; | titlecase&#125;&#125;&lt;/p&gt; &lt;!-- 输出 &quot;Foo-vs-bar&quot; --&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="自定义管道"><a href="#自定义管道" class="headerlink" title="自定义管道"></a>自定义管道</h1><ul>
+<li>使用<code>ng g p hello</code>命令创建管道文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Pipe, PipeTransform &#125; from &apos;@angular/core&apos;;</span><br><span class="line"></span><br><span class="line">@Pipe(&#123;</span><br><span class="line">  name: &apos;hello&apos;,</span><br><span class="line">  pure: true // 如果管道不受外界影响，只受参数的影响请遵守FP原则，设置为纯管道</span><br><span class="line">&#125;)</span><br><span class="line">export class HelloPipe implements PipeTransform &#123;</span><br><span class="line"></span><br><span class="line">  transform(value: string): string &#123;</span><br><span class="line">    if(!value) return value;</span><br><span class="line">    if(typeof value !== &apos;string&apos;) &#123;</span><br><span class="line">      throw new Error(&apos;Invalid pipe argument for HelloPipe&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    return &quot;Hello &quot; + value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>———–END———–</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Angular/" rel="tag"># Angular</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/29/VUE-随记/" rel="next" title="VUE 随记">
+                <i class="fa fa-chevron-left"></i> VUE 随记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/26/webpack-入门/" rel="prev" title="webpack 入门">
+                webpack 入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      <div class="tag-cloud">
+        <div class="tag-cloud-tags">
+          <a href="/tags/Amap/" style="font-size: 10px; color: #777">Amap</a> <a href="/tags/Angular/" style="font-size: 16px; color: #111">Angular</a> <a href="/tags/AngularJs/" style="font-size: 10px; color: #777">AngularJs</a> <a href="/tags/BootStrap/" style="font-size: 10px; color: #777">BootStrap</a> <a href="/tags/EChart/" style="font-size: 10px; color: #777">EChart</a> <a href="/tags/ES6/" style="font-size: 10px; color: #777">ES6</a> <a href="/tags/JSONP/" style="font-size: 10px; color: #777">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 14.8px; color: #252525">JavaScript</a> <a href="/tags/LESS/" style="font-size: 10px; color: #777">LESS</a> <a href="/tags/Linux/" style="font-size: 10px; color: #777">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px; color: #777">MongoDB</a> <a href="/tags/Nginx/" style="font-size: 11.2px; color: #636363">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 11.2px; color: #636363">NodeJs</a> <a href="/tags/ReactJs/" style="font-size: 10px; color: #777">ReactJs</a> <a href="/tags/RxJS/" style="font-size: 10px; color: #777">RxJS</a> <a href="/tags/TypeScript/" style="font-size: 13.6px; color: #3a3a3a">TypeScript</a> <a href="/tags/VueJs/" style="font-size: 11.2px; color: #636363">VueJs</a> <a href="/tags/css/" style="font-size: 10px; color: #777">css</a> <a href="/tags/git/" style="font-size: 10px; color: #777">git</a> <a href="/tags/hexo/" style="font-size: 10px; color: #777">hexo</a> <a href="/tags/miniProgram/" style="font-size: 10px; color: #777">miniProgram</a> <a href="/tags/npm/" style="font-size: 11.2px; color: #636363">npm</a> <a href="/tags/tslint/" style="font-size: 10px; color: #777">tslint</a> <a href="/tags/webpack/" style="font-size: 12.4px; color: #4e4e4e">webpack</a> <a href="/tags/yarn/" style="font-size: 10px; color: #777">yarn</a>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xdHoo</p>
+              <p class="site-description motion-element" itemprop="description">There is time.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>        
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Angular-6-内置管道"><span class="nav-number">1.</span> <span class="nav-text">Angular 6 内置管道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AsyncPipe-异步管道"><span class="nav-number">1.1.</span> <span class="nav-text">AsyncPipe - 异步管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.1.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.1.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">1.1.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CurrencyPipe-货币管道"><span class="nav-number">1.2.</span> <span class="nav-text">CurrencyPipe - 货币管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DatePipe-时间管道"><span class="nav-number">1.3.</span> <span class="nav-text">DatePipe - 时间管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DecimalPipe-数值管道"><span class="nav-number">1.4.</span> <span class="nav-text">DecimalPipe - 数值管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PercentPipe-百分比管道"><span class="nav-number">1.5.</span> <span class="nav-text">PercentPipe - 百分比管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-3"><span class="nav-number">1.5.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I18nPluralPipe-I18N复数管道"><span class="nav-number">1.6.</span> <span class="nav-text">I18nPluralPipe - I18N复数管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-5"><span class="nav-number">1.6.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-4"><span class="nav-number">1.6.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I18nSelectPipe-I18n选择管道"><span class="nav-number">1.7.</span> <span class="nav-text">I18nSelectPipe - I18n选择管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-6"><span class="nav-number">1.7.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-6"><span class="nav-number">1.7.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-5"><span class="nav-number">1.7.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JsonPipe-Json管道"><span class="nav-number">1.8.</span> <span class="nav-text">JsonPipe - Json管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-7"><span class="nav-number">1.8.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-7"><span class="nav-number">1.8.2.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KeyValuePipe-键值管道"><span class="nav-number">1.9.</span> <span class="nav-text">KeyValuePipe - 键值管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-8"><span class="nav-number">1.9.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-8"><span class="nav-number">1.9.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-6"><span class="nav-number">1.9.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LowerCasePipe-amp-amp-UpperCasePipe-大小写管道"><span class="nav-number">1.10.</span> <span class="nav-text">LowerCasePipe &amp;&amp; UpperCasePipe - 大小写管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-9"><span class="nav-number">1.10.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-9"><span class="nav-number">1.10.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-7"><span class="nav-number">1.10.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SlicePipe-截取管道"><span class="nav-number">1.11.</span> <span class="nav-text">SlicePipe - 截取管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-10"><span class="nav-number">1.11.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-10"><span class="nav-number">1.11.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-8"><span class="nav-number">1.11.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TitleCasePipe-标题管道"><span class="nav-number">1.12.</span> <span class="nav-text">TitleCasePipe - 标题管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-11"><span class="nav-number">1.12.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-11"><span class="nav-number">1.12.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-9"><span class="nav-number">1.12.3.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义管道"><span class="nav-number">2.</span> <span class="nav-text">自定义管道</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xdHoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

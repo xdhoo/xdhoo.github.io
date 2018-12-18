@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Angular,TypeScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;gt;&amp;gt;&amp;gt;TypeScript 接口...">
+<meta name="keywords" content="Angular,TypeScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 接口">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/TypeScript-接口/index.html">
+<meta property="og:site_name" content="xdHoo">
+<meta property="og:description" content="&amp;gt;&amp;gt;&amp;gt;TypeScript 接口...">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-29T12:47:17.305Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TypeScript 接口">
+<meta name="twitter:description" content="&amp;gt;&amp;gt;&amp;gt;TypeScript 接口...">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/09/TypeScript-接口/"/>
+
+
+
+
+
+  <title>TypeScript 接口 | xdHoo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xdHoo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There is time.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/09/TypeScript-接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xdHoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xdHoo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TypeScript 接口</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T18:16:01+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  >>>TypeScript 接口...
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="接口（interface）"><a href="#接口（interface）" class="headerlink" title="接口（interface）"></a>接口（interface）</h1><p>接口的作用是为类型命名以及为代码定义契约：</p>
+<ul>
+<li><strong>接口的基本使用</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface LabelledValue &#123;</span><br><span class="line">	label: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function printLabel(labelledObj: LabelledValue) &#123;</span><br><span class="line">	console.log(labelledObj.label);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let myObj = &#123;size: 10, label: &apos;Size 10 Object&apos;&#125;;</span><br><span class="line">printLabel(myObj); //Size 10 Object</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>*当传入对象（如：myObj）满足接口内的必要条件，则被允许。并不是传给printLabel的对象实现了这个接口。</code></p>
+<p><code>*类型检查器不检查属性的顺序，当相应属性存在且类型正确即可。</code></p>
+<ul>
+<li><strong>关于接口属性</strong>（可选属性、只读属性以及额外的属性检查）</li>
+</ul>
+<p><code>接口中的属性不全是必需的，可选属性能够对可能存在的属性进行预定义以及捕获引用了不存在属性时的错误</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface SquareConfig &#123; //通过‘?’表示可选属性</span><br><span class="line">	color?: string;</span><br><span class="line">	width?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function createSquare(config:SquareConfig): &#123;color:string; area: numner&#125; &#123;</span><br><span class="line">	let newSquare = &#123;color: &quot;white&quot;, area: 100&#125;;</span><br><span class="line">	if (config.color) &#123;</span><br><span class="line">	    newSquare.color = config.color;</span><br><span class="line">	&#125;</span><br><span class="line">	if (config.width) &#123;</span><br><span class="line">	    newSquare.area = config.width * config.width;</span><br><span class="line">    &#125;</span><br><span class="line">	return newSquare;</span><br><span class="line">&#125;</span><br><span class="line">let mySquare = createSquare(&#123;color: &quot;black&quot;&#125;);</span><br><span class="line">/***当使用以下语句创建时，对象字面量会经过额外属性检查***/</span><br><span class="line">let mySquare2 = createSquare(&#123;colour: &apos;red&apos;, width: 100&#125;); //error</span><br></pre></td></tr></table></figure></p>
+<p>上文代码片段error的三种处理方式：</p>
+<p>①使用类型断言：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let mySquare2 = createSquare(&#123;colour: &apos;red&apos;, width: 100&#125; as SquareConfig);</span><br></pre></td></tr></table></figure></p>
+<p>②使用签名索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">interface SquareConfig &#123;</span><br><span class="line">	color?: string;</span><br><span class="line">	width?: number;</span><br><span class="line">	[propName: string]: any; //允许带有任意数量的其他属性</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将对象赋值给另一个变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let squareOptions = &#123;colour: &apos;red&apos;, width: 7&#125;; //squareOptions不会经过额外属性检查</span><br><span class="line">let mySquare = createSquare(squareOptions);</span><br></pre></td></tr></table></figure>
+<p>使用readonly指定只读属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface Point &#123;</span><br><span class="line">	readonly x: number;</span><br><span class="line">	readonly y: number;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">let p1: Point = &#123; x: 1, y: 2&#125;;</span><br><span class="line">p1.x = 3;//error</span><br></pre></td></tr></table></figure></p>
+<p>数组创建后不能被修改，可以使用ReadonlyArray<t><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let myArray: ReadonlyArray&lt;number&gt; = [1, 2, 3, 4];</span><br><span class="line">myArray[0] = 7; //error</span><br><span class="line">myArray.push(5); //error</span><br><span class="line">myArray.length = 7; //error</span><br><span class="line"></span><br><span class="line">let a: number[];</span><br><span class="line">a = myArray; //error</span><br><span class="line">a = myArray as number[];//success！使用类型断言重写</span><br><span class="line"></span><br><span class="line">/***如果a为any类型***/</span><br><span class="line">let a: any; a = myArray; //success!</span><br></pre></td></tr></table></figure></t></p>
+<ul>
+<li><strong>关于接口类型</strong><br><code>函数类型</code>：主要是用于对参数和返回值的检查</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface SearchFunc &#123;</span><br><span class="line">	(source: string, subString: string): boolean; //定义了传入参数、参数类型以及返回类型（boolean）</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let mySearch = function(src: string, sub: string): boolean &#123;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>可索引类型</code>：可索引类型具有一个索引签名，描述了对象索引的类型及相应的索引返回值的类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface stringArray &#123;</span><br><span class="line">	[index: number]: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let myArray: stringArray = [&apos;Dog&apos;, &apos;Cat&apos;];</span><br><span class="line">let myStr: string = myArray[0]; //Dog</span><br></pre></td></tr></table></figure></p>
+<p>共有数字和字符串两种类型的索引签名，当使用number索引时，JavaScript会将其转换成string后再去索引，所以，当同时使用两种索引时，<strong>数字索引的返回值</strong>必须是<strong>字符串索引返回值</strong>类型的<strong>子类型</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    name: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dog extends Animal &#123;</span><br><span class="line">    breed: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Test &#123;</span><br><span class="line">    [x: string]: Animal;  </span><br><span class="line">    [x: number]: Dog;   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let myAnimal: Animal = &#123; name: &apos;Dog&apos; &#125;;</span><br><span class="line">let myDog: Dog = &#123; name: &apos;Cookies &apos;, breed: &apos;husky&apos; &#125;;</span><br><span class="line"></span><br><span class="line">let myTest: Test = &#123;</span><br><span class="line">    0: myDog,</span><br><span class="line">    myAnimal</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let theName1 = myTest.myAnimal.name; //Dog  (string索引)</span><br><span class="line">let theName2 = myTest[0].name; //Cookies  (number索引)</span><br></pre></td></tr></table></figure></p>
+<p>可以将索引设置为只读，以防止对索引进行赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">interface ReadonlyStringArray &#123;</span><br><span class="line">    readonly [index: number]: string;</span><br><span class="line">&#125;</span><br><span class="line">let myArray: ReadonlyStringArray = [&quot;Dog&quot;, &quot;Cat&quot;];</span><br><span class="line">myArray[2] = &quot;Pig&quot;; // error</span><br></pre></td></tr></table></figure></p>
+<p><code>类类型</code>：作用是强制一个类去符合某种契约<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">interface AnimalInterface &#123;</span><br><span class="line">	name: string;</span><br><span class="line">	speak(s: string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Animal implements AnimalInterface &#123;</span><br><span class="line">	name: string;</span><br><span class="line">	speak(s: string)&#123;</span><br><span class="line">		console.log(s);</span><br><span class="line">	&#125;</span><br><span class="line">	constructor()&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">//接口描述了类的公共部分，并不会检查类是否具有某些私有成员。</span><br><span class="line">interface ClockConstructor &#123;</span><br><span class="line">    new (hour: number, minute: number);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Clock implements ClockConstructor &#123;//error！ constructor存在于类的静态部分，所以不在检查的范围内。 </span><br><span class="line">    currentTime: Date;</span><br><span class="line">    constructor(h: number, m: number) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>混合类型</code>：一个对象可以同时作为函数和对象使用，并且带有额外的属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">interface Animal&#123;</span><br><span class="line">	(name: string): string;</span><br><span class="line">	age: number;</span><br><span class="line">    speak(s: string): string;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getAnimal(): Animal &#123;</span><br><span class="line">	let animal = &lt;Animal&gt;function(name: string) &#123;&#125;;</span><br><span class="line">	animal.age = 2;</span><br><span class="line">	animal.speak = function(s:string): string&#123;</span><br><span class="line">        return s;</span><br><span class="line">    &#125;</span><br><span class="line">    return animal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>继承接口</code> ：从一个接口中复制成员到另一个接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">	color: string;</span><br><span class="line">&#125;</span><br><span class="line">interface Square extends Shape &#123;</span><br><span class="line">	sideLength: number;</span><br><span class="line">&#125;</span><br><span class="line">/***一个接口允许继承多个接口***/</span><br><span class="line">interface Square extends Shape ，xxx, yyy&#123;</span><br><span class="line">	sideLength: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>接口继承类</code> :当接口继承了一个类类型时，它会继承类的成员但不包括其实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Control &#123;</span><br><span class="line">    private state: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface SelectableControl extends Control &#123;</span><br><span class="line">    select(): void;</span><br><span class="line">&#125;</span><br><span class="line">class Button implements SelectableControl &#123;//error!因为Button中没有state属性</span><br><span class="line">    select() &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Button extends Control implements SelectableControl &#123;//success!</span><br><span class="line">    select() &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TextBox extends Button&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">let tb: TextBox;</span><br><span class="line">tb.select();</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://www.tslang.cn/docs/handbook/interfaces.html" target="_blank" rel="noopener">参考文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Angular/" rel="tag"># Angular</a>
+          
+            <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/08/TypeScript与JavaScript类型比较/" rel="next" title="TypeScript与JavaScript类型比较">
+                <i class="fa fa-chevron-left"></i> TypeScript与JavaScript类型比较
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/18/TypeScript-类/" rel="prev" title="TypeScript 类">
+                TypeScript 类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      <div class="tag-cloud">
+        <div class="tag-cloud-tags">
+          <a href="/tags/Amap/" style="font-size: 10px; color: #777">Amap</a> <a href="/tags/Angular/" style="font-size: 16px; color: #111">Angular</a> <a href="/tags/AngularJs/" style="font-size: 10px; color: #777">AngularJs</a> <a href="/tags/BootStrap/" style="font-size: 10px; color: #777">BootStrap</a> <a href="/tags/EChart/" style="font-size: 10px; color: #777">EChart</a> <a href="/tags/ES6/" style="font-size: 10px; color: #777">ES6</a> <a href="/tags/JSONP/" style="font-size: 10px; color: #777">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 14.8px; color: #252525">JavaScript</a> <a href="/tags/LESS/" style="font-size: 10px; color: #777">LESS</a> <a href="/tags/Linux/" style="font-size: 10px; color: #777">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px; color: #777">MongoDB</a> <a href="/tags/Nginx/" style="font-size: 11.2px; color: #636363">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 11.2px; color: #636363">NodeJs</a> <a href="/tags/ReactJs/" style="font-size: 10px; color: #777">ReactJs</a> <a href="/tags/RxJS/" style="font-size: 10px; color: #777">RxJS</a> <a href="/tags/TypeScript/" style="font-size: 13.6px; color: #3a3a3a">TypeScript</a> <a href="/tags/VueJs/" style="font-size: 11.2px; color: #636363">VueJs</a> <a href="/tags/css/" style="font-size: 10px; color: #777">css</a> <a href="/tags/git/" style="font-size: 10px; color: #777">git</a> <a href="/tags/hexo/" style="font-size: 10px; color: #777">hexo</a> <a href="/tags/miniProgram/" style="font-size: 10px; color: #777">miniProgram</a> <a href="/tags/npm/" style="font-size: 11.2px; color: #636363">npm</a> <a href="/tags/tslint/" style="font-size: 10px; color: #777">tslint</a> <a href="/tags/webpack/" style="font-size: 12.4px; color: #4e4e4e">webpack</a> <a href="/tags/yarn/" style="font-size: 10px; color: #777">yarn</a>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xdHoo</p>
+              <p class="site-description motion-element" itemprop="description">There is time.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>        
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#接口（interface）"><span class="nav-number">1.</span> <span class="nav-text">接口（interface）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xdHoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

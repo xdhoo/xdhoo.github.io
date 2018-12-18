@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ES6,JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于let for循环循环变量是一个父作用域，循环体内为单独的子作用域 1234for(let i = 0; i &amp;lt; 1; i++)&amp;#123;  let i = &amp;apos;hello&amp;apos;;  console.log(i);&amp;#125; // hello  不存在变量提升变量在未申明前使用抛出异常  不允许在相同作用域中，重复申明一个变量 var &amp;amp; function 命令">
+<meta name="keywords" content="ES6,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript 6">
+<meta property="og:url" content="http://yoursite.com/2018/07/10/ECMAScript-6/index.html">
+<meta property="og:site_name" content="xdHoo">
+<meta property="og:description" content="关于let for循环循环变量是一个父作用域，循环体内为单独的子作用域 1234for(let i = 0; i &amp;lt; 1; i++)&amp;#123;  let i = &amp;apos;hello&amp;apos;;  console.log(i);&amp;#125; // hello  不存在变量提升变量在未申明前使用抛出异常  不允许在相同作用域中，重复申明一个变量 var &amp;amp; function 命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-29T12:47:17.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ECMAScript 6">
+<meta name="twitter:description" content="关于let for循环循环变量是一个父作用域，循环体内为单独的子作用域 1234for(let i = 0; i &amp;lt; 1; i++)&amp;#123;  let i = &amp;apos;hello&amp;apos;;  console.log(i);&amp;#125; // hello  不存在变量提升变量在未申明前使用抛出异常  不允许在相同作用域中，重复申明一个变量 var &amp;amp; function 命令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/10/ECMAScript-6/"/>
+
+
+
+
+
+  <title>ECMAScript 6 | xdHoo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xdHoo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There is time.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/ECMAScript-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xdHoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xdHoo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ECMAScript 6</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T15:30:50+08:00">
+                2018-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="关于let"><a href="#关于let" class="headerlink" title="关于let"></a>关于let</h1><ul>
+<li><p>for循环<br>循环变量是一个父作用域，循环体内为单独的子作用域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(let i = 0; i &lt; 1; i++)&#123;</span><br><span class="line">  let i = &apos;hello&apos;;</span><br><span class="line">  console.log(i);</span><br><span class="line">&#125; // hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不存在变量提升<br>变量在未申明前使用抛出异常</p>
+</li>
+<li>不允许在相同作用域中，重复申明一个变量</li>
+<li>var &amp; function 命令申明的全局变量，为顶层对象属性。let &amp; const &amp; class 申明的变量属于顶层对象属性</li>
+</ul>
+<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>优化Unicode表示法<br>字符串能够被for…of遍历<br>新增includes() &amp; startsWith() &amp; endsWith()<br>repeat() - 返回新字符串，将原字符串重复n次，小数取整<br>ES2017引入字符串补全长度padStart() &amp; padEnd()</p>
+<h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><ul>
+<li>let s = Symbol(),可添加参数描述</li>
+<li>Symbol值不能与其它类型的值进行运算，可以显式转为字符串，可转为boolean值</li>
+<li>Symbol作为属性名是不能使用点运算符</li>
+<li>Symbol.for() &amp; Symbol.keyFor()</li>
+</ul>
+<h1 id="Set-amp-Map"><a href="#Set-amp-Map" class="headerlink" title="Set &amp;Map"></a>Set &amp;Map</h1><ul>
+<li>内部使用<code>===</code>比较，所以 5 和 ‘5’为不同数据，注：NaN 等于NaN</li>
+<li>操作方法：add / delete / has / clear</li>
+<li>Array.from可以将set结构转为数组</li>
+<li>遍历：keys() - 键名 / values() - 键值 / entries() - 键值对 / forEach() - 回调函数遍历整个成员</li>
+<li>由于Set结构没有键名，所以keys方法和values方法行为完全一致</li>
+<li>WeakSet结构，成员只能是对象</li>
+<li>WeakMap: 只接受对象作为键名</li>
+</ul>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><ul>
+<li>对象状态不受外界影响，状态：pending(进行中) / fulfilled(已成功) / rejected(已失败)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/小程序入门整理/" rel="next" title="小程序入门整理">
+                <i class="fa fa-chevron-left"></i> 小程序入门整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/27/flex布局/" rel="prev" title="flex布局">
+                flex布局 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      <div class="tag-cloud">
+        <div class="tag-cloud-tags">
+          <a href="/tags/Amap/" style="font-size: 10px; color: #777">Amap</a> <a href="/tags/Angular/" style="font-size: 16px; color: #111">Angular</a> <a href="/tags/AngularJs/" style="font-size: 10px; color: #777">AngularJs</a> <a href="/tags/BootStrap/" style="font-size: 10px; color: #777">BootStrap</a> <a href="/tags/EChart/" style="font-size: 10px; color: #777">EChart</a> <a href="/tags/ES6/" style="font-size: 10px; color: #777">ES6</a> <a href="/tags/JSONP/" style="font-size: 10px; color: #777">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 14.8px; color: #252525">JavaScript</a> <a href="/tags/LESS/" style="font-size: 10px; color: #777">LESS</a> <a href="/tags/Linux/" style="font-size: 10px; color: #777">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px; color: #777">MongoDB</a> <a href="/tags/Nginx/" style="font-size: 11.2px; color: #636363">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 11.2px; color: #636363">NodeJs</a> <a href="/tags/ReactJs/" style="font-size: 10px; color: #777">ReactJs</a> <a href="/tags/RxJS/" style="font-size: 10px; color: #777">RxJS</a> <a href="/tags/TypeScript/" style="font-size: 13.6px; color: #3a3a3a">TypeScript</a> <a href="/tags/VueJs/" style="font-size: 11.2px; color: #636363">VueJs</a> <a href="/tags/css/" style="font-size: 10px; color: #777">css</a> <a href="/tags/git/" style="font-size: 10px; color: #777">git</a> <a href="/tags/hexo/" style="font-size: 10px; color: #777">hexo</a> <a href="/tags/miniProgram/" style="font-size: 10px; color: #777">miniProgram</a> <a href="/tags/npm/" style="font-size: 11.2px; color: #636363">npm</a> <a href="/tags/tslint/" style="font-size: 10px; color: #777">tslint</a> <a href="/tags/webpack/" style="font-size: 12.4px; color: #4e4e4e">webpack</a> <a href="/tags/yarn/" style="font-size: 10px; color: #777">yarn</a>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xdHoo</p>
+              <p class="site-description motion-element" itemprop="description">There is time.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>        
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于let"><span class="nav-number">1.</span> <span class="nav-text">关于let</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解构赋值"><span class="nav-number">2.</span> <span class="nav-text">解构赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">3.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Symbol"><span class="nav-number">4.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-amp-Map"><span class="nav-number">5.</span> <span class="nav-text">Set &amp;Map</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise"><span class="nav-number">6.</span> <span class="nav-text">Promise</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xdHoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
